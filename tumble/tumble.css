@@ -1,0 +1,126 @@
+/* Tumble's own look, loaded after base.css. The palette is taken from the game
+   itself — the board navy and the four block colours — so the page and the
+   thing it describes agree. Nothing here is shared with Isle. */
+
+:root {
+  --board: #0f1020;
+  --board-cell: #191b2e;
+  --pink: #ff5c7a;
+  --yellow: #ffd166;
+  --green: #2dd4a7;
+  --blue: #5b8def;
+  --glow: rgba(45, 212, 167, 0.14);
+}
+
+:root[data-theme="light"] {
+  --glow: rgba(45, 212, 167, 0.12);
+}
+
+/* ---------- hero ---------- */
+
+.hero {
+  position: relative;
+  text-align: center;
+  padding: 56px 0 8px;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  width: min(560px, 90vw);
+  height: 300px;
+  transform: translateX(-50%);
+  background: radial-gradient(ellipse at center, var(--glow), transparent 68%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.hero > * { position: relative; z-index: 1; }
+
+.hero h1 {
+  margin: 30px 0 14px;
+  font-size: clamp(40px, 8.5vw, 66px);
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  line-height: 1.04;
+}
+
+.hero .sub {
+  margin: 0 auto;
+  max-width: 30ch;
+  color: var(--muted);
+  font-size: clamp(18px, 3.4vw, 22px);
+  line-height: 1.45;
+}
+
+.mark { display: block; margin: 0 auto; border-radius: 22px; }
+
+/* ---------- store ---------- */
+
+.store { text-align: center; padding: 28px 0 8px; }
+
+.badge {
+  display: inline-block;
+  padding: 13px 26px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--muted);
+  font-size: 15px;
+}
+
+/* ---------- the board demo ---------- */
+
+.demo { margin: 56px auto 0; max-width: 320px; }
+
+.board {
+  display: block;
+  width: 100%;
+  border-radius: 24px;
+  background: var(--board);
+  border: 1px solid var(--line);
+}
+
+.caption { margin-top: 14px; text-align: center; color: var(--muted); font-size: 13px; }
+
+/* ---------- rules ---------- */
+
+.rules { padding: 60px 0 8px; display: grid; gap: 16px; }
+
+@media (min-width: 760px) {
+  .rules { grid-template-columns: repeat(3, 1fr); }
+}
+
+.rule {
+  padding: 24px 22px 26px;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: var(--surface);
+}
+
+.rule .icon { display: block; margin-bottom: 16px; }
+
+.rule h2 {
+  margin: 0 0 7px;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.rule p { margin: 0; color: var(--muted); font-size: 15px; line-height: 1.55; }
+
+/* ---------- notes ---------- */
+
+.notes { padding: 44px 0 8px; display: grid; gap: 12px; }
+
+.note {
+  padding: 20px 22px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  color: var(--muted);
+  font-size: 14.5px;
+  line-height: 1.6;
+}
+.note strong { color: var(--text); font-weight: 600; }
