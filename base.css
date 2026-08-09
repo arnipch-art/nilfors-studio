@@ -1,0 +1,139 @@
+/* Nilfors Studio — the shell every page shares.
+   Deliberately plain: reset, theme, header, footer, long-form text. Nothing in
+   here belongs to a particular project, because projects will not look alike.
+   A project styles itself in its own stylesheet, loaded after this one.
+
+   No web fonts, no CDNs, no analytics: the privacy policies claim we collect
+   nothing, and a third-party font request would quietly make that untrue. */
+
+:root {
+  --bg: #000;
+  --surface: rgba(255, 255, 255, 0.045);
+  --surface-hi: rgba(255, 255, 255, 0.08);
+  --text: #f5f5f7;
+  --body: #d2d2d7;
+  --muted: #86868b;
+  --line: rgba(255, 255, 255, 0.12);
+  --accent: #5ac7ff;
+  --measure: 720px;
+}
+
+:root[data-theme="light"] {
+  --bg: #fbfbfd;
+  --surface: rgba(0, 0, 0, 0.035);
+  --surface-hi: rgba(0, 0, 0, 0.06);
+  --text: #1d1d1f;
+  --body: #3a3a3c;
+  --muted: #6e6e73;
+  --line: rgba(0, 0, 0, 0.12);
+  --accent: #0071e3;
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 400 17px/1.6 -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Helvetica Neue", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  transition: background 0.25s ease, color 0.25s ease;
+}
+
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+.wrap { max-width: var(--measure); margin: 0 auto; padding: 0 24px; }
+
+/* ---------- header ---------- */
+
+header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 22px 0;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+.brand:hover { text-decoration: none; opacity: 0.8; }
+
+/* Breadcrumb back to the studio from inside a project. */
+.brand-up {
+  color: var(--muted);
+  font-size: 15px;
+  font-weight: 400;
+}
+.brand-up:hover { color: var(--text); text-decoration: none; }
+
+header .spacer { flex: 1; }
+
+.toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+  padding: 0;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+.toggle:hover { background: var(--surface-hi); }
+.toggle svg { display: block; }
+/* Show one icon per theme. */
+.toggle .moon { display: none; }
+:root[data-theme="light"] .toggle .moon { display: block; }
+:root[data-theme="light"] .toggle .sun { display: none; }
+
+/* ---------- long-form pages (privacy, support, anything wordy) ---------- */
+
+.page { padding: 8px 0 24px; }
+
+.page h1 {
+  font-size: clamp(30px, 7vw, 42px);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  margin: 16px 0 4px;
+}
+
+.page .updated { color: var(--muted); font-size: 14px; margin: 0 0 34px; }
+.page h2 { margin: 42px 0 10px; font-size: 21px; font-weight: 600; letter-spacing: -0.01em; }
+.page h3 { margin: 30px 0 6px; font-size: 17px; font-weight: 600; }
+.page p, .page li { color: var(--body); }
+.page ul { padding-left: 20px; }
+.page li { margin-bottom: 6px; }
+
+hr { border: 0; border-top: 1px solid var(--line); margin: 42px 0; }
+
+/* ---------- footer ---------- */
+
+footer {
+  border-top: 1px solid var(--line);
+  margin-top: 72px;
+  padding: 26px 0 48px;
+  color: var(--muted);
+  font-size: 14px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  align-items: center;
+}
+
+footer .spacer { flex: 1; }
+footer a { color: var(--muted); }
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
+}

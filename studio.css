@@ -1,0 +1,215 @@
+/* The studio index. Plain on purpose — it has to sit above a phone app, a game,
+   and whatever comes after without looking like any of them.
+
+   The one place colour is allowed is a project's own tile. That way the page
+   gets more colourful as the shelf fills up, and the colour always belongs to
+   a project rather than to the studio. */
+
+/* Wider than the reading measure in base.css: this page is a grid, not prose. */
+:root { --measure: 880px; }
+
+/* ---------- sticky header + tabs ---------- */
+
+/* Scoped to this stylesheet, so only the studio page gets a sticky header —
+   the project pages keep theirs as it was. */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: var(--bg);
+  border-bottom: 1px solid var(--line);
+  transition: background 0.25s ease;
+}
+
+.tabs {
+  display: flex;
+  gap: 2px;
+  padding: 3px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface);
+}
+
+.tab {
+  padding: 7px 16px;
+  border-radius: 999px;
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.2;
+  white-space: nowrap;
+  transition: background 0.18s ease, color 0.18s ease;
+}
+.tab:hover { text-decoration: none; color: var(--text); }
+
+/* Solid fill for the selected tab: on a page this quiet, a tinted background
+   is not enough to read as "you are here". */
+.tab.is-active {
+  background: var(--text);
+  color: var(--bg);
+}
+.tab.is-active:hover { color: var(--bg); }
+
+/* The script sets [hidden] on the panel that isn't showing. Spelled out because
+   a panel is display:grid/flex in places, which would otherwise beat the
+   browser's default [hidden] rule. */
+.panel[hidden] { display: none; }
+
+/* Holds the page height roughly steady between a long panel and a short one,
+   so switching tabs doesn't make the footer jump up the screen. */
+.panel { min-height: 340px; }
+
+/* Narrow screens: let the bar wrap and give the tabs their own full-width row
+   rather than crushing them against the brand. */
+@media (max-width: 560px) {
+  header { flex-wrap: wrap; row-gap: 12px; }
+  .tabs { order: 3; width: 100%; justify-content: center; }
+}
+
+/* ---------- intro ---------- */
+
+/* Left-aligned, not centred. A centred block under a mark reads as a product
+   launch; this is an index of work. */
+.intro { padding: 40px 0 8px; }
+
+.intro h1 {
+  margin: 0 0 16px;
+  font-size: clamp(34px, 6.5vw, 50px);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.08;
+}
+
+.intro p {
+  margin: 0;
+  max-width: 44ch;
+  color: var(--muted);
+  font-size: clamp(17px, 2.6vw, 19px);
+  line-height: 1.55;
+}
+
+/* ---------- section headings ---------- */
+
+.section { padding: 66px 0 0; }
+
+.section-head {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin: 0 0 20px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--line);
+}
+
+.section-head h2 {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+}
+
+.section-count {
+  color: var(--muted);
+  font-size: 14px;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- projects ---------- */
+
+/* auto-fit: one project fills the row, and each one after that takes its place
+   without this file changing. */
+.project-grid {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+}
+
+.project {
+  display: flex;
+  flex-direction: column;
+  padding: 22px 22px 20px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: var(--surface);
+  color: var(--text);
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+.project:hover {
+  text-decoration: none;
+  background: var(--surface-hi);
+  transform: translateY(-2px);
+}
+
+/* Each project supplies its own tile. Fixed box so a row of them lines up
+   whatever art goes inside. */
+.project-tile {
+  width: 46px;
+  height: 46px;
+  margin-bottom: 16px;
+  border-radius: 13px;
+  overflow: hidden;
+  flex: none;
+  /* Inset so it sits over the art without changing the box: without it Isle's
+     black tile disappears into the dark page, and a pale tile would do the same
+     in light mode. Every project's tile gets an edge for free. */
+  box-shadow: inset 0 0 0 1px var(--line);
+}
+.project-tile svg,
+.project-tile img { display: block; width: 100%; height: 100%; }
+
+.project-name {
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin-bottom: 5px;
+}
+
+/* flex:1 keeps the meta row pinned to the bottom, so cards with descriptions of
+   different lengths still line up along their bottom edge. */
+.project-desc {
+  margin: 0;
+  flex: 1;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.55;
+}
+
+.project-meta {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin: 18px 0 0;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.project-status {
+  padding: 4px 10px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+/* Status is the one bit of state worth colouring. Kept as a tinted outline
+   rather than a solid fill so it stays quiet next to the project's own tile. */
+.project-status.is-live {
+  color: #34c759;
+  border-color: rgba(52, 199, 89, 0.45);
+}
+:root[data-theme="light"] .project-status.is-live {
+  color: #248a3d;
+  border-color: rgba(36, 138, 61, 0.4);
+}
+
+/* ---------- plain text sections ---------- */
+
+.block p {
+  margin: 0 0 14px;
+  max-width: 62ch;
+  color: var(--body);
+  font-size: 16px;
+  line-height: 1.65;
+}
+.block p:last-child { margin-bottom: 0; }

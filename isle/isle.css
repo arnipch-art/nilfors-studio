@@ -1,0 +1,142 @@
+/* Isle's own look, loaded after base.css. Everything here is Isle-specific:
+   the glow, the black-glass pill, the product hero. Other projects get their
+   own stylesheet and are free to look nothing like this. */
+
+:root {
+  --glow: rgba(120, 190, 255, 0.16);
+  --pill-fill: #08080a;
+  --pill-stroke: rgba(255, 255, 255, 0.9);
+}
+
+:root[data-theme="light"] {
+  --glow: rgba(0, 113, 227, 0.10);
+  /* The island itself is black glass — it stays dark in both themes, because
+     that is what it actually looks like on the phone. */
+  --pill-fill: #0a0a0c;
+  --pill-stroke: rgba(0, 0, 0, 0.85);
+}
+
+/* ---------- hero ---------- */
+
+.hero {
+  position: relative;
+  text-align: center;
+  padding: 64px 0 8px;
+}
+
+/* Soft light behind the mark, so the pill doesn't float on flat black. */
+.hero::before {
+  content: "";
+  position: absolute;
+  top: 18px;
+  left: 50%;
+  width: min(560px, 90vw);
+  height: 300px;
+  transform: translateX(-50%);
+  background: radial-gradient(ellipse at center, var(--glow), transparent 68%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.hero > * { position: relative; z-index: 1; }
+
+.mark { display: block; margin: 0 auto; }
+
+.hero h1 {
+  margin: 34px 0 14px;
+  font-size: clamp(40px, 8.5vw, 68px);
+  font-weight: 600;
+  letter-spacing: -0.035em;
+  line-height: 1.04;
+}
+
+.hero .sub {
+  margin: 0 auto;
+  max-width: 26ch;
+  color: var(--muted);
+  font-size: clamp(18px, 3.4vw, 22px);
+  line-height: 1.45;
+}
+
+/* ---------- store ---------- */
+
+.store { text-align: center; padding: 30px 0 8px; }
+
+.badge {
+  display: inline-block;
+  padding: 13px 26px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--muted);
+  font-size: 15px;
+  background: var(--surface);
+}
+
+.badge.live {
+  background: var(--text);
+  border-color: var(--text);
+  color: var(--bg);
+  font-weight: 600;
+}
+.badge.live:hover { text-decoration: none; opacity: 0.88; }
+
+/* ---------- film ---------- */
+
+.film { margin: 56px auto 0; max-width: 286px; }
+
+/* A slim bezel so the 9:16 film reads as a phone rather than a floating rect. */
+.film .device {
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: 42px;
+  background: var(--surface);
+}
+
+.film video {
+  width: 100%;
+  display: block;
+  border-radius: 32px;
+  background: #000;
+}
+
+.caption { margin-top: 14px; text-align: center; color: var(--muted); font-size: 13px; }
+
+/* ---------- features ---------- */
+
+.features { padding: 64px 0 8px; display: grid; gap: 16px; }
+
+@media (min-width: 760px) {
+  .features { grid-template-columns: repeat(3, 1fr); }
+}
+
+.feature {
+  padding: 26px 24px 28px;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: var(--surface);
+}
+
+.feature .icon { margin-bottom: 18px; display: block; }
+
+.feature h2 {
+  margin: 0 0 7px;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.feature p { margin: 0; color: var(--muted); font-size: 15px; line-height: 1.55; }
+
+/* ---------- notes ---------- */
+
+.notes { padding: 44px 0 8px; display: grid; gap: 12px; }
+
+.note {
+  padding: 20px 22px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  color: var(--muted);
+  font-size: 14.5px;
+  line-height: 1.6;
+}
+.note strong { color: var(--text); font-weight: 600; }

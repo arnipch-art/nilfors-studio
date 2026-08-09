@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Privacy Policy — Isle</title>
+<meta name="description" content="Isle collects nothing. Your designs and gem balance never leave your iPhone.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../favicon.ico" sizes="48x48">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="theme-color" content="#000000">
+<link rel="stylesheet" href="../base.css">
+<link rel="stylesheet" href="isle.css">
+<script>
+  // Runs before paint so the right theme is on the first frame, no flash.
+  (function () {
+    var t;
+    try { t = localStorage.getItem('nilfors-theme'); } catch (e) {}
+    if (!t) t = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', t);
+  })();
+</script>
+</head>
+<body>
+
+<div class="wrap">
+
+  <header>
+    <a class="brand" href="index.html">
+      <svg width="52" height="20" viewBox="0 0 52 20" aria-hidden="true">
+        <defs><linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#ff5c9e"/><stop offset="50%" stop-color="#ffc43d"/><stop offset="100%" stop-color="#5ac7ff"/>
+        </linearGradient></defs>
+        <rect x="1" y="1" width="50" height="18" rx="9" fill="var(--pill-fill)" stroke="var(--pill-stroke)" stroke-width="1.5"/>
+        <circle cx="12" cy="10" r="5.5" fill="url(#g1)"/>
+      </svg>
+      Isle
+    </a>
+    <span class="spacer"></span>
+    <a class="brand-up" href="../">Nilfors Studio</a>
+    <button class="toggle" type="button" aria-label="Switch to light mode">
+      <svg class="sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M19.1 4.9l-1.4 1.4M6.3 17.7l-1.4 1.4"/></svg>
+      <svg class="moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+    </button>
+  </header>
+
+  <main class="page">
+    <h1>Privacy Policy</h1>
+    <p class="updated">Isle · Nilfors Studio · Last updated 9 August 2026</p>
+
+    <h2>The short version</h2>
+    <p>Isle does not collect, store, or transmit anything about you. Your
+       designs, your colours and your gem balance live on your iPhone and
+       nowhere else. There is no server, no account system, and no way for us to
+       identify you.</p>
+    <p>The one exception is advertising, described below.</p>
+
+    <hr>
+
+    <h2>What stays on your device</h2>
+    <ul>
+      <li>The designs you create, including drawings and photos you import</li>
+      <li>Your gem balance and which rewards you have claimed</li>
+      <li>Your chosen design, colour and label</li>
+    </ul>
+    <p>All of this is stored locally on your iPhone, and in a shared container
+       used by the Isle widget so it can draw on the Dynamic Island. None of it
+       is uploaded. Deleting the app deletes all of it permanently, and we cannot
+       recover it, because we never had it.</p>
+
+    <h3>Photos</h3>
+    <p>When you choose a photo, Isle reads only the image you select. It is
+       processed entirely on your device, and what gets saved is a small copy
+       you have edited. Isle has no access to the rest of your photo library.</p>
+
+    <h2>Advertising</h2>
+    <p>Isle shows rewarded video ads through <strong>Google AdMob</strong>, and
+       only when you choose to watch one in exchange for gems. Google is an
+       independent company, and its software may collect device and usage
+       information in order to deliver and measure those ads.</p>
+    <p>Isle does not request App Tracking Transparency permission, so ads shown
+       in Isle are <strong>non-personalised</strong>.</p>
+    <p>Google's handling of that data is governed by their policy, not ours:
+       <a href="https://policies.google.com/privacy">policies.google.com/privacy</a></p>
+
+    <h2>Purchases</h2>
+    <p>Gem purchases are handled entirely by Apple through the App Store. Isle
+       never sees your payment details, card number or billing address. We
+       receive only Apple's confirmation that a purchase completed.</p>
+
+    <h2>Children</h2>
+    <p>Isle is not directed at children under 13, and we do not knowingly
+       collect information from them. Since we collect no personal information
+       from anyone, there is nothing for us to delete on request.</p>
+
+    <h2>Your rights</h2>
+    <p>Because Isle holds no personal data on any server, there is nothing to
+       request, export, correct or erase from us. Everything Isle knows about
+       you is on your device and under your control.</p>
+
+    <h2>Changes</h2>
+    <p>If this policy changes, the date above changes with it, and material
+       changes will be noted in the app's release notes.</p>
+
+    <h2>Contact</h2>
+    <p>Questions about this policy: <a href="mailto:hello@nilfors.studio">hello@nilfors.studio</a></p>
+  </main>
+
+  <footer>
+    <a href="../">Nilfors Studio</a>
+    <span class="spacer"></span>
+    <a href="index.html">Isle</a>
+    <a href="support.html">Support</a>
+  </footer>
+
+</div>
+
+<script src="../theme.js"></script>
+</body>
+</html>
