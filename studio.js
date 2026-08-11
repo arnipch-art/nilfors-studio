@@ -7,6 +7,29 @@
 //
 // Without this script every panel simply stays visible and the tabs behave as
 // ordinary in-page links, so the page is still complete with JS disabled.
+// The sticky header only draws its glass and its bottom rule once content has
+// actually gone under it — at the top of the page there is nothing to separate
+// from, and a bar there would just be a line under the logo.
+(function () {
+  var header = document.querySelector('header');
+  if (!header) return;
+
+  var stuck = false;
+
+  function sync() {
+    var next = window.scrollY > 4;
+    // Only touch the DOM on a crossing. Reading scrollY is cheap; a class
+    // write on every scroll event is not.
+    if (next !== stuck) {
+      stuck = next;
+      header.classList.toggle('is-stuck', stuck);
+    }
+  }
+
+  sync();
+  window.addEventListener('scroll', sync, { passive: true });
+})();
+
 (function () {
   var tabs = [].slice.call(document.querySelectorAll('.tab'));
   if (!tabs.length) return;

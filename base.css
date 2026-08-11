@@ -14,8 +14,12 @@
   --body: #d2d2d7;
   --muted: #86868b;
   --line: rgba(255, 255, 255, 0.12);
+  --line-hi: rgba(255, 255, 255, 0.26);
   --accent: #5ac7ff;
   --measure: 720px;
+  /* One easing for everything that moves, so the whole site accelerates the
+     same way. Slightly overshooting on the way out reads as physical. */
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
 :root[data-theme="light"] {
@@ -26,6 +30,7 @@
   --body: #3a3a3c;
   --muted: #6e6e73;
   --line: rgba(0, 0, 0, 0.12);
+  --line-hi: rgba(0, 0, 0, 0.26);
   --accent: #0071e3;
 }
 
@@ -44,6 +49,15 @@ body {
 
 a { color: var(--accent); text-decoration: none; }
 a:hover { text-decoration: underline; }
+
+/* Keyboard focus was leaning on the browser default, which lands a hairline
+   ring on a black page. One visible ring everywhere, and only for keyboards —
+   a mouse click on a card shouldn't leave it outlined. */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
 
 .wrap { max-width: var(--measure); margin: 0 auto; padding: 0 24px; }
 
@@ -132,7 +146,8 @@ footer {
 }
 
 footer .spacer { flex: 1; }
-footer a { color: var(--muted); }
+footer a { color: var(--muted); transition: color 0.18s var(--ease); }
+footer a:hover { color: var(--text); text-decoration: none; }
 
 @media (prefers-reduced-motion: reduce) {
   * { transition: none !important; }

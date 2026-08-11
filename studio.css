@@ -3,23 +3,91 @@
 
    The one place colour is allowed is a project's own tile. That way the page
    gets more colourful as the shelf fills up, and the colour always belongs to
-   a project rather than to the studio. */
+   a project rather than to the studio. Each card carries its own --tint, and
+   the card borrows it only on hover, so the page at rest stays monochrome. */
 
 /* Wider than the reading measure in base.css: this page is a grid, not prose. */
-:root { --measure: 880px; }
+:root { --measure: 920px; }
+
+/* Studio-only surfaces. Kept out of base.css because Isle tuned its own look
+   against the old values and shouldn't shift underneath. */
+:root {
+  --card: rgba(255, 255, 255, 0.032);
+  --card-hi: rgba(255, 255, 255, 0.062);
+  --card-line: rgba(255, 255, 255, 0.10);
+}
+:root[data-theme="light"] {
+  --card: rgba(255, 255, 255, 0.9);
+  --card-line: rgba(0, 0, 0, 0.09);
+  --card-hi: #fff;
+}
+
+/* A pure flat field made the whole page read as unfinished. Two very faint
+   washes give the sticky header something to separate from and the cards
+   something to sit on. Layered as background-image over base.css's background
+   colour — a positioned pseudo-element would have to sit behind the body's own
+   opaque paint, which no z-index can do. Fixed so it doesn't drift on scroll. */
+body {
+  background-image:
+    radial-gradient(70ch 52ch at 18% -6%, rgba(90, 199, 255, 0.11), transparent 62%),
+    radial-gradient(60ch 44ch at 88% 2%, rgba(255, 92, 158, 0.06), transparent 60%);
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+}
+:root[data-theme="light"] body {
+  background-image:
+    radial-gradient(70ch 52ch at 18% -6%, rgba(0, 113, 227, 0.10), transparent 62%),
+    radial-gradient(60ch 44ch at 88% 2%, rgba(255, 92, 158, 0.06), transparent 60%);
+}
 
 /* ---------- sticky header + tabs ---------- */
 
 /* Scoped to this stylesheet, so only the studio page gets a sticky header —
    the project pages keep theirs as it was. */
+/* On this page the header is a full-width band that lives outside .wrap, with
+   .bar holding the content column inside it. base.css lays the header itself
+   out as the flex row — here that job moves inward to .bar. Spanning the real
+   element beats faking full-bleed with 100vw, which overshoots by the width of
+   a classic scrollbar and puts a horizontal scrollbar on the page. */
 header {
   position: sticky;
   top: 0;
   z-index: 20;
-  background: var(--bg);
-  border-bottom: 1px solid var(--line);
-  transition: background 0.25s ease;
+  display: block;
+  padding: 0;
+  /* Only earns its glass and its rule once something has scrolled under it;
+     studio.js adds .is-stuck. At the top of the page there is nothing to
+     separate from, and a bar there is just a line under the logo. */
+  background: transparent;
+  border-bottom: 1px solid transparent;
+  /* Left on at all times. Toggling it with the class would snap rather than
+     fade, and at the top of the page there is nothing behind the bar for it
+     to blur anyway. Only the mask and the rule fade in. */
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
+  transition: border-color 0.25s var(--ease), background 0.25s var(--ease);
 }
+
+header.is-stuck {
+  background: color-mix(in srgb, var(--bg) 72%, transparent);
+  border-bottom-color: var(--line);
+}
+
+/* No backdrop-filter (older Safari, Firefox with it disabled): fall back to an
+   opaque bar rather than letting page text show through the header. */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  header.is-stuck { background: var(--bg); }
+}
+
+.bar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding-top: 22px;
+  padding-bottom: 22px;
+}
+
+.brand .mark { display: block; border-radius: 6px; }
 
 .tabs {
   display: flex;
@@ -31,6 +99,7 @@ header {
 }
 
 .tab {
+  position: relative;
   padding: 7px 16px;
   border-radius: 999px;
   color: var(--muted);
@@ -38,17 +107,27 @@ header {
   font-weight: 500;
   line-height: 1.2;
   white-space: nowrap;
-  transition: background 0.18s ease, color 0.18s ease;
+  transition: color 0.18s var(--ease);
 }
 .tab:hover { text-decoration: none; color: var(--text); }
 
 /* Solid fill for the selected tab: on a page this quiet, a tinted background
-   is not enough to read as "you are here". */
-.tab.is-active {
+   is not enough to read as "you are here". The fill is a pseudo-element so it
+   can slide between tabs instead of blinking on and off. */
+.tab::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: 999px;
   background: var(--text);
-  color: var(--bg);
+  opacity: 0;
+  transform: scale(0.82);
+  transition: opacity 0.18s var(--ease), transform 0.22s var(--ease);
 }
+.tab.is-active { color: var(--bg); }
 .tab.is-active:hover { color: var(--bg); }
+.tab.is-active::before { opacity: 1; transform: none; }
 
 /* The script sets [hidden] on the panel that isn't showing. Spelled out because
    a panel is display:grid/flex in places, which would otherwise beat the
@@ -59,11 +138,21 @@ header {
    so switching tabs doesn't make the footer jump up the screen. */
 .panel { min-height: 340px; }
 
+/* The panel that just appeared rises a few pixels into place, so a tab press
+   has a visible result even when both panels are about the same size. */
+.panel:not([hidden]) { animation: panel-in 0.32s var(--ease) both; }
+
+@keyframes panel-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: none; }
+}
+
 /* Narrow screens: let the bar wrap and give the tabs their own full-width row
    rather than crushing them against the brand. */
 @media (max-width: 560px) {
-  header { flex-wrap: wrap; row-gap: 12px; }
+  .bar { flex-wrap: wrap; row-gap: 12px; }
   .tabs { order: 3; width: 100%; justify-content: center; }
+  .tab { flex: 1; text-align: center; }
 }
 
 /* ---------- intro ---------- */
@@ -72,6 +161,9 @@ header {
    launch; this is an index of work. */
 .intro { padding: 40px 0 8px; }
 
+/* The hero is deliberately left exactly as it was. The studio's name and its
+   one-line description were already right; nothing below this point should
+   grow into them. */
 .intro h1 {
   margin: 0 0 16px;
   font-size: clamp(34px, 6.5vw, 50px);
@@ -90,27 +182,34 @@ header {
 
 /* ---------- section headings ---------- */
 
-.section { padding: 66px 0 0; }
+.section { padding: 58px 0 0; }
 
 .section-head {
   display: flex;
   align-items: baseline;
   gap: 12px;
-  margin: 0 0 20px;
+  margin: 0 0 22px;
   padding-bottom: 14px;
   border-bottom: 1px solid var(--line);
 }
 
 .section-head h2 {
   margin: 0;
-  font-size: 22px;
+  font-size: 15px;
   font-weight: 600;
-  letter-spacing: -0.015em;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
 }
 
+/* The count is a fact about the shelf, not a heading. Boxed and tabular so it
+   stays the same width as the number grows. */
 .section-count {
+  padding: 1px 8px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
   color: var(--muted);
-  font-size: 14px;
+  font-size: 12px;
   font-variant-numeric: tabular-nums;
 }
 
@@ -120,49 +219,103 @@ header {
    without this file changing. */
 .project-grid {
   display: grid;
-  gap: 14px;
+  gap: 16px;
   grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
 }
 
 .project {
+  position: relative;
+  isolation: isolate;
   display: flex;
   flex-direction: column;
-  padding: 22px 22px 20px;
-  border: 1px solid var(--line);
-  border-radius: 18px;
-  background: var(--surface);
+  padding: 24px 24px 22px;
+  border: 1px solid var(--card-line);
+  border-radius: 20px;
+  background: var(--card);
   color: var(--text);
-  transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+  overflow: hidden;
+  transition: border-color 0.25s var(--ease), transform 0.25s var(--ease),
+              box-shadow 0.25s var(--ease), background 0.25s var(--ease);
 }
 
-.project:hover {
+/* The project's own colour, borrowed only while pointed at. Each card sets
+   --tint inline, so a new project brings its bloom with it and this file
+   never learns the palette. */
+.project::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  z-index: -1;
+  background: radial-gradient(120% 90% at 8% 0%, var(--tint, transparent), transparent 62%);
+  opacity: 0;
+  transition: opacity 0.28s var(--ease);
+}
+
+.project:hover,
+.project:focus-visible {
   text-decoration: none;
-  background: var(--surface-hi);
-  transform: translateY(-2px);
+  background: var(--card-hi);
+  border-color: var(--line-hi);
+  transform: translateY(-3px);
+  box-shadow: 0 14px 34px -18px rgba(0, 0, 0, 0.85);
+}
+.project:hover::before,
+.project:focus-visible::before { opacity: 0.5; }
+.project:active { transform: translateY(-1px); }
+
+:root[data-theme="light"] .project {
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+:root[data-theme="light"] .project:hover {
+  box-shadow: 0 16px 32px -20px rgba(0, 0, 0, 0.45);
 }
 
 /* Each project supplies its own tile. Fixed box so a row of them lines up
-   whatever art goes inside. */
+   whatever art goes inside. Bigger than it was: the tile is the only thing on
+   this page carrying a project's identity, so it should not read as a
+   favicon. */
 .project-tile {
-  width: 46px;
-  height: 46px;
-  margin-bottom: 16px;
-  border-radius: 13px;
+  position: relative;
+  width: 58px;
+  height: 58px;
+  margin-bottom: 18px;
+  border-radius: 16px;
   overflow: hidden;
   flex: none;
   /* Inset so it sits over the art without changing the box: without it Isle's
      black tile disappears into the dark page, and a pale tile would do the same
      in light mode. Every project's tile gets an edge for free. */
   box-shadow: inset 0 0 0 1px var(--line);
+  transition: transform 0.28s var(--ease);
 }
+.project:hover .project-tile { transform: scale(1.05) rotate(-1.5deg); }
 .project-tile svg,
 .project-tile img { display: block; width: 100%; height: 100%; }
 
 .project-name {
-  font-size: 17px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 18px;
   font-weight: 600;
-  letter-spacing: -0.01em;
-  margin-bottom: 5px;
+  letter-spacing: -0.015em;
+  margin-bottom: 6px;
+}
+
+/* The arrow is the card's only affordance — nothing else says "this is a
+   link". It leans out on hover rather than appearing, so the row above it
+   never reflows. */
+.project-name .arrow {
+  flex: none;
+  color: var(--muted);
+  opacity: 0;
+  transform: translateX(-3px);
+  transition: opacity 0.22s var(--ease), transform 0.22s var(--ease);
+}
+.project:hover .project-name .arrow,
+.project:focus-visible .project-name .arrow {
+  opacity: 1;
+  transform: none;
 }
 
 /* flex:1 keeps the meta row pinned to the bottom, so cards with descriptions of
@@ -170,6 +323,7 @@ header {
 .project-desc {
   margin: 0;
   flex: 1;
+  max-width: 34ch;
   color: var(--muted);
   font-size: 15px;
   line-height: 1.55;
@@ -178,29 +332,101 @@ header {
 .project-meta {
   display: flex;
   align-items: center;
-  gap: 9px;
-  margin: 18px 0 0;
+  gap: 10px;
+  margin: 20px 0 0;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
   font-size: 13px;
   color: var(--muted);
 }
 
+.project-meta .spacer { flex: 1; }
+
+/* Status is the one bit of state worth colouring, and a dot carries it in less
+   space than a tinted outline did — the pill can then stay neutral and not
+   compete with the project's own tile. */
+/* currentColor carries the state: the modifier classes below set it on the
+   pill, the dot and its halo pick it up, and the label stays muted. */
 .project-status {
-  padding: 4px 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 4px 11px 4px 9px;
   border: 1px solid var(--line);
   border-radius: 999px;
+  color: var(--muted);
   font-size: 12px;
   line-height: 1.4;
+  white-space: nowrap;
 }
 
-/* Status is the one bit of state worth colouring. Kept as a tinted outline
-   rather than a solid fill so it stays quiet next to the project's own tile. */
-.project-status.is-live {
-  color: #34c759;
-  border-color: rgba(52, 199, 89, 0.45);
+.project-status::before {
+  content: "";
+  flex: none;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  box-shadow: 0 0 0 3px color-mix(in srgb, currentColor 20%, transparent);
 }
-:root[data-theme="light"] .project-status.is-live {
-  color: #248a3d;
-  border-color: rgba(36, 138, 61, 0.4);
+
+/* The label itself stays quiet — only the dot is allowed the state colour. */
+.project-status .label { color: var(--muted); }
+
+.project-status.is-live   { color: #34c759; }
+.project-status.is-dev    { color: #ffb340; }
+.project-status.is-soon   { color: #5ac7ff; }
+:root[data-theme="light"] .project-status.is-live { color: #248a3d; }
+:root[data-theme="light"] .project-status.is-dev  { color: #a05a00; }
+:root[data-theme="light"] .project-status.is-soon { color: #0071e3; }
+
+/* ---------- contact ---------- */
+
+/* An address buried mid-sentence is the thing people came to this panel for.
+   Given its own target it can be tapped without aiming. */
+.contact-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 20px;
+  border: 1px solid var(--card-line);
+  border-radius: 18px;
+  background: var(--card);
+  color: var(--text);
+  max-width: 460px;
+  transition: border-color 0.25s var(--ease), background 0.25s var(--ease),
+              transform 0.25s var(--ease);
+}
+.contact-card:hover {
+  text-decoration: none;
+  background: var(--card-hi);
+  border-color: var(--line-hi);
+  transform: translateY(-2px);
+}
+
+.contact-icon {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  background: var(--surface);
+  box-shadow: inset 0 0 0 1px var(--line);
+  color: var(--accent);
+}
+.contact-icon svg { display: block; }
+
+.contact-card .address {
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+.contact-card .hint {
+  display: block;
+  margin-top: 2px;
+  color: var(--muted);
+  font-size: 13.5px;
 }
 
 /* ---------- plain text sections ---------- */
@@ -213,3 +439,17 @@ header {
   line-height: 1.65;
 }
 .block p:last-child { margin-bottom: 0; }
+
+/* The privacy line is a footnote to the panel, not a second paragraph of equal
+   weight. */
+.block .note {
+  margin-top: 22px;
+  color: var(--muted);
+  font-size: 14.5px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .panel:not([hidden]) { animation: none; }
+  .project:hover, .contact-card:hover { transform: none; }
+  .project:hover .project-tile { transform: none; }
+}
