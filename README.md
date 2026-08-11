@@ -45,3 +45,14 @@ python3 -m http.server 4173
 
 Pushing to `main` publishes via GitHub Pages. There is no build, so what is in
 the repo is what is served.
+
+**Bump `?v=` on every stylesheet and script link whenever you change CSS, JS or
+the markup that depends on them.** Pages serves HTML and assets with the same
+`max-age=600` and they expire independently, so without this a returning
+visitor can get the new HTML against a ten-minute-old stylesheet. That is not a
+slow refresh — it is a broken page, because the markup and the CSS are written
+against each other. One find-and-replace across the five HTML files:
+
+```bash
+sed -i '' 's/?v=2/?v=3/g' index.html isle/*.html tumble/*.html
+```
