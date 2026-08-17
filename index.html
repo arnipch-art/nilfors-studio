@@ -65,7 +65,7 @@
   <section class="section panel" id="projects" role="tabpanel" aria-labelledby="tab-projects">
     <div class="section-head">
       <h2>Projects</h2>
-      <span class="section-count">2</span>
+      <span class="section-count">3</span>
     </div>
 
     <div class="project-grid">
@@ -121,6 +121,34 @@
         </p>
       </a>
 
+      <!-- Filenova lives on its own domain, so this card leaves the site and
+           takes the outbound arrow. Its tile is Filenova's own mark, redrawn
+           from the favicon rather than hotlinked: the contact panel promises
+           nothing loads from anywhere else, and an <img> to filenova.co would
+           quietly make that untrue. Its --tint is white because the brand is
+           monochrome — it has no colour of its own to borrow. -->
+      <a class="project" href="https://filenova.co/en" style="--tint: rgba(255, 255, 255, 0.12)">
+        <span class="project-tile">
+          <svg viewBox="0 0 64 64" aria-hidden="true">
+            <rect width="64" height="64" fill="#000"/>
+            <path d="M32 16 47.6 43 16.4 43Z" fill="#fff"/>
+          </svg>
+        </span>
+        <span class="project-name">
+          Filenova
+          <svg class="arrow" width="15" height="15" viewBox="0 0 24 24" fill="none"
+               stroke="currentColor" stroke-width="2.4" stroke-linecap="round"
+               stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg>
+        </span>
+        <p class="project-desc">Convert, compress and resize images and
+           documents — free, no sign-up.</p>
+        <p class="project-meta">
+          <span>Web</span>
+          <span class="spacer"></span>
+          <span class="project-status is-live"><span class="label">Live</span></span>
+        </p>
+      </a>
+
       <!-- Next project: copy a whole <a class="project"> block. Give it its own
            tile art, --tint, name, one line, platform and status. The status pill
            takes .is-soon, .is-dev or .is-live — that class is the only thing
@@ -133,7 +161,7 @@
     <div class="section-head"><h2>Contact</h2></div>
     <!-- Support address. Also in isle/privacy.html and isle/support.html —
          change all three together, it is the App Store support contact. -->
-    <a class="contact-card" href="mailto:yourisle.support@gmail.com">
+    <a class="contact-card" href="mailto:isle.support@nilfors.studio">
       <span class="contact-icon">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
              stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -142,7 +170,7 @@
         </svg>
       </span>
       <span>
-        <span class="address">yourisle.support@gmail.com</span>
+        <span class="address">isle.support@nilfors.studio</span>
         <span class="hint">Bugs, ideas, or anything else. Every message gets read.</span>
       </span>
     </a>
@@ -155,6 +183,7 @@
     <span class="spacer"></span>
     <a href="isle/">Isle</a>
     <a href="tumble/">Tumble</a>
+    <a href="https://filenova.co/en">Filenova</a>
   </footer>
 
 </div>
