@@ -14,7 +14,16 @@ isle/           the Isle project
   privacy.html  ← App Store Connect privacy URL
   support.html  ← App Store Connect support URL
   isle.css      Isle's own look; other projects get their own
+
+tumble/         same shape as isle/
+normerat/       same shape again, but written in Swedish (lang="sv") — the app
+                is about högskoleprovet, so its readers are Swedish. Its tile
+                and mark are the app's own icon as PNG rather than inline SVG:
+                the mark is a serif N and this site loads no web fonts.
 ```
+
+A project that is only a link off-site needs no folder at all — Filenova is a
+card on the index and nothing more.
 
 ## Adding a project
 

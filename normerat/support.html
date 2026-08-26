@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Support — Normerat</title>
+<meta name="description" content="Hjälp med Normerat: vad ett normerat är, hur studieplanen räknas ut, hur dueller fungerar och vad appen sparar.">
+<link rel="canonical" href="https://nilfors.studio/normerat/support.html">
+<link rel="icon" href="icon.png" type="image/png">
+<link rel="icon" href="../favicon.ico" sizes="48x48">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="theme-color" content="#1b3a8f">
+<link rel="stylesheet" href="../base.css?v=2">
+<link rel="stylesheet" href="normerat.css?v=2">
+<script>
+  // Körs före första målningen så rätt tema syns direkt, utan blink.
+  (function () {
+    var t;
+    try { t = localStorage.getItem('nilfors-theme'); } catch (e) {}
+    if (!t) t = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', t);
+  })();
+</script>
+</head>
+<body>
+
+<div class="wrap">
+
+  <header>
+    <a class="brand" href="index.html">
+      <img src="icon.png" width="22" height="22" alt="" style="border-radius:6px;display:block">
+      Normerat
+    </a>
+    <span class="spacer"></span>
+    <a class="brand-up" href="../">Nilfors Studio</a>
+    <button class="toggle" type="button" aria-label="Byt till ljust läge">
+      <svg class="sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M19.1 4.9l-1.4 1.4M6.3 17.7l-1.4 1.4"/></svg>
+      <svg class="moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+    </button>
+  </header>
+
+  <main class="page">
+    <h1>Support</h1>
+    <p class="updated">Mejla <a href="mailto:support.normerat@nilfors.studio">support.normerat@nilfors.studio</a> — varje meddelande läses.</p>
+
+    <h2>Vanliga frågor</h2>
+
+    <h3>Vad är ett normerat egentligen?</h3>
+    <p>Det är resultatet på högskoleprovet omräknat till en skala från 0,00 till
+       2,00. Det är den siffran urvalet till utbildningarna faktiskt använder,
+       och därför den enda Normerat visar. Råpoäng säger ingenting förrän de
+       normerats.</p>
+
+    <h3>Varför ligger ett delprov jag är sämre på längre ned i fokuslistan?</h3>
+    <p>För att delproven väger olika tungt. NOG är 12 av provets 160 uppgifter,
+       ORD är 20. Ett lyft på NOG flyttar totalen mindre än ett lika stort lyft
+       på ORD, så fokuslistan sorteras på svaghet gånger vikt — inte på lägst
+       resultat. Appen skriver ut anledningen på plats, så att ordningen inte
+       ser ut som ett fel.</p>
+
+    <h3>Hur räknas studieplanen ut?</h3>
+    <p>Du anger ett måltal. Appen lägger på lite i taget på det delprov där det
+       höjer den beräknade totalen mest, om och om igen tills målet är nått.
+       Resultatet är hur många uppgifter per delprov som krävs, och ungefär hur
+       lång tid det tar.</p>
+
+    <h3>Siffrorna i planen — hur exakta är de?</h3>
+    <p>Riktningen är pålitlig, den exakta volymen är en uppskattning.
+       Omräkningen mellan antal uppgifter och normerat bygger på en konstant som
+       är satt på erfarenhet, inte uppmätt, och normeringstabellen är en
+       approximation av UHR:s. Använd planen för att veta <em>vad</em> du ska
+       öva på och i vilken ordning, inte som ett löfte om exakt hur många
+       minuter det tar.</p>
+
+    <h3>Varför kommer en uppgift jag svarat rätt på aldrig tillbaka?</h3>
+    <p>Det är meningen. Rätt svar pensionerar uppgiften från övningskön, medan
+       fel svar kommer tillbaka efter en stunds karens. Övningen ska föra dig
+       framåt, inte repetera det du redan kan. Uppgifterna finns kvar i
+       provsimuleringar och dueller, så inget material går förlorat.</p>
+
+    <h3>Vad är energin till för?</h3>
+    <p>Varje besvarad uppgift kostar en energi. Du börjar med 25 och fyller på
+       genom att se en reklamfilm. Det finns inget tak — påfyllnaden är just en
+       påfyllnad och inte en gräns, så ett helt provpass går alltid att
+       göra.</p>
+
+    <h3>Hur fungerar duellerna?</h3>
+    <p>Ni gör samma tio uppgifter och byter en kod. Koden innehåller
+       uppgifternas nummer, ditt namn, antal rätt och din tid — den skickas via
+       den app du själv väljer och passerar aldrig oss. LÄS och ELF är
+       utelämnade ur dueller, annars blir det ett uthållighetsprov snarare än en
+       match.</p>
+
+    <h3>Behöver Normerat internet?</h3>
+    <p>Själva träningen fungerar utan. Det finns inget att logga in på och allt
+       räknas på telefonen. Reklamfilmerna behöver uppkoppling, så det är den
+       enda delen som går ut på nätet.</p>
+
+    <h3>Jag har bytt telefon — följer mina resultat med?</h3>
+    <p>Nej, inte i nuläget. Normerat sparar allt på enheten och har varken konto
+       eller molnsynk, så historiken följer inte med till en ny telefon.</p>
+
+    <h3>Samlar Normerat in mina uppgifter?</h3>
+    <p>Vi samlar inte in något — det finns inget konto och ingen server hos oss.
+       Det enda som lämnar telefonen är det annonsnätverket behöver för att visa
+       och mäta reklam. Hela beskrivningen finns i
+       <a href="privacy.html">integritetspolicyn</a>.</p>
+
+    <h3>När kommer den?</h3>
+    <p>Normerat är på väg till App Store. Något släppdatum finns inte att ge
+       ännu.</p>
+  </main>
+
+  <footer>
+    <a href="../">Nilfors Studio</a>
+    <span class="spacer"></span>
+    <a href="index.html">Normerat</a>
+    <a href="privacy.html">Integritet</a>
+  </footer>
+
+</div>
+
+<script src="../theme.js?v=2"></script>
+</body>
+</html>

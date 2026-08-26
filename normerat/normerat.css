@@ -1,0 +1,218 @@
+/* Normerat's own look. The app is light and typographic — deep blue on cream —
+   so this page leans on those two colours rather than the neutral shell.
+
+   Its palette is the app icon's, sampled from it: #1b3a8f and #faf9f6. */
+
+:root {
+  --nm-blue: #2f57c4;   /* lifted from the icon's #1b3a8f: the real blue is
+                           too dark to read as a link on a black page */
+  --nm-blue-deep: #1b3a8f;
+  --nm-cream: #faf9f6;
+  --nm-glow: rgba(47, 87, 196, 0.20);
+  --accent: var(--nm-blue);
+}
+:root[data-theme="light"] {
+  --nm-blue: #1b3a8f;
+  --nm-glow: rgba(27, 58, 143, 0.12);
+  --accent: var(--nm-blue-deep);
+}
+
+/* ---------- hero ---------- */
+
+.hero {
+  position: relative;
+  padding: 40px 0 8px;
+  text-align: center;
+}
+
+/* The same soft bloom the other project pages use, in Normerat's blue. */
+.hero::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: -40px;
+  width: min(660px, 108%);
+  height: 320px;
+  transform: translateX(-50%);
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(ellipse at center, var(--nm-glow), transparent 68%);
+}
+
+.hero .mark {
+  display: block;
+  margin: 0 auto 26px;
+  width: 88px;
+  height: 88px;
+  border-radius: 20px;
+  box-shadow: inset 0 0 0 1px var(--line);
+}
+
+.hero h1 {
+  margin: 0 0 14px;
+  font-size: clamp(32px, 6.4vw, 48px);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.06;
+}
+
+.hero .sub {
+  margin: 0 auto;
+  max-width: 34ch;
+  color: var(--muted);
+  font-size: clamp(16px, 2.5vw, 19px);
+  line-height: 1.55;
+}
+
+/* ---------- store badge ---------- */
+
+.store { margin: 30px 0 0; text-align: center; }
+
+.badge {
+  display: inline-block;
+  padding: 12px 24px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--muted);
+  font-size: 15px;
+}
+
+/* When Normerat ships, swap the span for an <a class="badge live"> the way
+   isle/index.html does. */
+.badge.live {
+  border-color: transparent;
+  background: var(--text);
+  color: var(--bg);
+  font-weight: 500;
+}
+.badge.live:hover { text-decoration: none; opacity: 0.88; }
+
+/* ---------- the number, shown rather than described ---------- */
+
+/* Normerat's whole premise is one figure on a 0.00–2.00 scale, so the page
+   shows the scale instead of explaining it. */
+.scale {
+  margin: 54px 0 0;
+  padding: 26px 24px 22px;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: var(--surface);
+}
+
+.scale-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.scale-now { color: var(--muted); font-size: 13px; }
+
+.scale-value {
+  font-size: clamp(30px, 6vw, 40px);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+  color: var(--nm-blue);
+}
+
+.scale-track {
+  position: relative;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--surface-hi);
+  box-shadow: inset 0 0 0 1px var(--line);
+}
+
+.scale-fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--nm-blue-deep), var(--nm-blue));
+}
+
+/* The goal marker sits further along the track than the current value — the
+   gap between them is the thing the app is actually about. */
+.scale-goal {
+  position: absolute;
+  top: -5px;
+  bottom: -5px;
+  width: 2px;
+  border-radius: 2px;
+  background: var(--text);
+}
+
+/* The label hangs off the marker rather than sitting in the row of end labels:
+   there it read as the midpoint of the scale, which is a different number
+   entirely from where the marker actually stands. */
+.scale-goal .tag {
+  position: absolute;
+  top: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  color: var(--text);
+}
+
+.scale-ends {
+  display: flex;
+  justify-content: space-between;
+  /* Clears the goal label now hanging below the track. */
+  margin-top: 28px;
+  color: var(--muted);
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+}
+
+.scale-note {
+  margin: 16px 0 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+/* ---------- features ---------- */
+
+.rules {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  margin-top: 20px;
+}
+
+.rule {
+  padding: 22px 22px 20px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: var(--surface);
+}
+
+.rule .icon { display: block; margin-bottom: 14px; }
+.rule h2 {
+  margin: 0 0 7px;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+.rule p { margin: 0; color: var(--muted); font-size: 15px; line-height: 1.55; }
+
+/* ---------- notes ---------- */
+
+.notes { margin-top: 20px; display: grid; gap: 12px; }
+
+.note {
+  margin: 0;
+  padding: 18px 20px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.6;
+}
+.note strong { color: var(--text); font-weight: 600; }
+
+section { padding-top: 34px; }

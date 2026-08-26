@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Normerat — träna till högskoleprovet</title>
+<meta name="description" content="Normerat mäter var du ligger på högskoleprovet och räknar ut vad som faktiskt krävs för att nå ditt måltal.">
+<meta property="og:title" content="Normerat — träna till högskoleprovet">
+<meta property="og:description" content="Ett nivåtest placerar dig på skalan. Sedan räknar appen baklänges från måltalet.">
+<meta property="og:image" content="https://nilfors.studio/normerat/apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="sv_SE">
+<link rel="canonical" href="https://nilfors.studio/normerat/">
+<link rel="icon" href="icon.png" type="image/png">
+<link rel="icon" href="../favicon.ico" sizes="48x48">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="theme-color" content="#1b3a8f">
+<link rel="stylesheet" href="../base.css?v=2">
+<link rel="stylesheet" href="normerat.css?v=2">
+<script>
+  // Körs före första målningen så rätt tema syns direkt, utan blink.
+  (function () {
+    var t;
+    try { t = localStorage.getItem('nilfors-theme'); } catch (e) {}
+    if (!t) t = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', t);
+  })();
+</script>
+</head>
+<body>
+
+<div class="wrap">
+
+  <header>
+    <a class="brand" href="index.html">
+      <img src="icon.png" width="22" height="22" alt="" style="border-radius:6px;display:block">
+      Normerat
+    </a>
+    <span class="spacer"></span>
+    <a class="brand-up" href="../">Nilfors Studio</a>
+    <button class="toggle" type="button" aria-label="Byt till ljust läge">
+      <svg class="sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M19.1 4.9l-1.4 1.4M6.3 17.7l-1.4 1.4"/></svg>
+      <svg class="moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+    </button>
+  </header>
+
+  <section class="hero">
+    <img class="mark" src="apple-touch-icon.png" width="88" height="88"
+         alt="Normerats appikon: ett N i gräddvitt på djupblå botten">
+    <h1>Vet var du står.<br>Och vad som är kvar.</h1>
+    <p class="sub">Normerat mäter din nivå på högskoleprovet och räknar ut vad
+       som faktiskt krävs för att nå ditt måltal.</p>
+  </section>
+
+  <section class="store">
+    <!-- När Normerat är ute, byt spanen mot:
+         <a class="badge live" href="https://apps.apple.com/app/idAPP_ID">Ladda ner på App Store</a> -->
+    <span class="badge">Snart på App Store</span>
+  </section>
+
+  <section class="scale" aria-label="Exempel på hur appen visar din nivå">
+    <div class="scale-row">
+      <span class="scale-now">Din nivå just nu</span>
+      <span class="scale-value">1,15</span>
+    </div>
+    <div class="scale-track">
+      <!-- Ett påhittat exempel, inte riktiga siffror: 1,15 av skalans 2,00 är
+           57,5 %, och måltalet 1,50 ligger vid 75 %. -->
+      <span class="scale-fill" style="width:57.5%"></span>
+      <span class="scale-goal" style="left:75%"><span class="tag">Måltal 1,50</span></span>
+    </div>
+    <p class="scale-ends"><span>0,00</span><span>2,00</span></p>
+    <p class="scale-note">Ett normerat, inte en procentsats. Strecket är ditt
+       måltal — avståndet dit är hela det appen försöker svara på.</p>
+  </section>
+
+  <section class="rules">
+    <div class="rule">
+      <svg class="icon" width="30" height="30" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+        <path d="M4 24h24" stroke="var(--nm-blue)" stroke-width="2.4" stroke-linecap="round"/>
+        <path d="M9 24v-7M16 24V9M23 24v-11" stroke="var(--nm-blue)" stroke-width="2.4" stroke-linecap="round"/>
+      </svg>
+      <h2>Nivåtest först</h2>
+      <p>Ett adaptivt test placerar dig på skalan innan du börjar plugga. Du
+         får ett normerat att utgå från, inte en procentsats.</p>
+    </div>
+
+    <div class="rule">
+      <svg class="icon" width="30" height="30" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+        <circle cx="16" cy="16" r="11" stroke="var(--nm-blue)" stroke-width="2.4"/>
+        <circle cx="16" cy="16" r="5" stroke="var(--nm-blue)" stroke-width="2.4"/>
+        <circle cx="16" cy="16" r="1.6" fill="var(--nm-blue)"/>
+      </svg>
+      <h2>Planen räknar baklänges</h2>
+      <p>Du säger vilket normerat du vill ha. Appen lägger tiden där den höjer
+         totalen mest, och visar hur många uppgifter det faktiskt kostar.</p>
+    </div>
+
+    <div class="rule">
+      <svg class="icon" width="30" height="30" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+        <path d="M16 5v22" stroke="var(--nm-blue)" stroke-width="2.4" stroke-linecap="round"/>
+        <path d="M7 11h18" stroke="var(--nm-blue)" stroke-width="2.4" stroke-linecap="round"/>
+        <path d="M7 11 3.5 19h7L7 11zM25 11l-3.5 8h7L25 11z" stroke="var(--nm-blue)" stroke-width="2.2" stroke-linejoin="round"/>
+      </svg>
+      <h2>Vikt, inte bara svaghet</h2>
+      <p>NOG kan hamna under ORD i fokuslistan trots sämre resultat — NOG är 12
+         av 160 uppgifter, ORD är 20. Appen skriver ut varför.</p>
+    </div>
+  </section>
+
+  <section class="notes">
+    <p class="note">
+      <strong>Ett kortprov på 16 minuter ger ändå ett normerat.</strong> Tolv
+      uppgifter ur båda provdelarna räknas upp till provets riktiga
+      sammansättning, så en kvart säger något meningsfullt.
+    </p>
+    <p class="note">
+      <strong>Ingen poängjakt.</strong> Inga XP och ingen valuta att samla — ett
+      resultat och en svit räcker. Dagens mål är antalet uppgifter din egen plan
+      kräver, inte en siffra tagen ur luften.
+    </p>
+    <p class="note">
+      <strong>Duell mot en kompis.</strong> Ni gör samma tio uppgifter och byter
+      en kod. Ingen inloggning, ingen topplista, ingen server — koden bär hela
+      resultatet.
+    </p>
+    <p class="note">
+      Minilektioner dyker upp ur de svar du får fel, och utvecklingskurvan
+      räknas om från dina egna svar. Byggd för iPhone. Dina svar och din
+      historik stannar på telefonen — det enda som går ut på nätet är
+      reklamfilmerna.
+    </p>
+    <!-- Supportadressen. Byt den här och i privacy.html + support.html samtidigt. -->
+    <p class="note">
+      Buggar, idéer eller annat —
+      <a href="mailto:support.normerat@nilfors.studio">support.normerat@nilfors.studio</a>.
+      Varje meddelande läses.
+    </p>
+  </section>
+
+  <footer>
+    <a href="../">Nilfors Studio</a>
+    <span class="spacer"></span>
+    <a href="support.html">Support</a>
+    <a href="privacy.html">Integritet</a>
+  </footer>
+
+</div>
+
+<script src="../theme.js?v=2"></script>
+</body>
+</html>
