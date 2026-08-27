@@ -1,8 +1,3 @@
-# Authorised Digital Sellers for Arne Nilsson Forsström / Nilfors Studio.
-#
-# Google crawls this file at the domain given as the developer/marketing URL on
-# the App Store listing. Without it, buyers that require an authorised-sellers
-# record will not bid on Isle's inventory, which costs fill rate silently.
-#
-# Format: <ad system domain>, <publisher id>, <relationship>, <cert authority id>
+# Authorized Digital Sellers - Nilfors Studio
+# Kept to plain ASCII and a single record so no parser has anything to trip on.
 google.com, pub-2465132667285679, DIRECT, f08c47fec0942fa0
