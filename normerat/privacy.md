@@ -91,6 +91,6 @@ i appens versionsinformation.
 
 ## Kontakt
 
-Frågor om policyn: **support.normerat@nilfors.studio**
+Frågor om policyn: **support@nilfors.studio**
 
 Nilfors Studio

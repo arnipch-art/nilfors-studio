@@ -8,7 +8,7 @@ redirect to the store. Google Play asks for the same.
 
 ## Get in touch
 
-**support.tumble@nilfors.studio** — I read every message.
+**support@nilfors.studio** — I read every message.
 
 ---
 

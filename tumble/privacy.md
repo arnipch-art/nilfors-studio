@@ -79,6 +79,6 @@ changes will be noted in the release notes.
 
 ## Contact
 
-Questions about this policy: **support.tumble@nilfors.studio**
+Questions about this policy: **support@nilfors.studio**
 
 Nilfors Studio

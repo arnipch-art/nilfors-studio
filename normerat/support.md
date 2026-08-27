@@ -8,7 +8,7 @@ sida och inte en omdirigering till App Store.
 
 ## Hör av dig
 
-**support.normerat@nilfors.studio** — varje meddelande läses.
+**support@nilfors.studio** — varje meddelande läses.
 
 ---
 
