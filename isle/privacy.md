@@ -81,6 +81,6 @@ changes will be noted in the app's release notes.
 
 ## Contact
 
-Questions about this policy: **support@nilfors.studio**
+Questions about this policy: **isle.support@nilfors.studio**
 
 Nilfors Studio

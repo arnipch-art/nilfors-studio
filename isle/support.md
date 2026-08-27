@@ -8,7 +8,7 @@ the App Store.
 
 ## Get in touch
 
-**support@nilfors.studio** — I read every message.
+**isle.support@nilfors.studio** — I read every message.
 
 ---
 

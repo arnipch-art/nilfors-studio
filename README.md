@@ -25,6 +25,11 @@ normerat/       same shape again, but written in Swedish (lang="sv") — the app
 A project that is only a link off-site needs no folder at all — Filenova is a
 card on the index and nothing more.
 
+New projects use **support@nilfors.studio**, the studio address. Isle is the
+one exception: it shipped with `isle.support@` filed in App Store Connect and
+that address is in use, so it keeps it. Don't add a third scheme — the mailbox
+host charges per user.
+
 ## Adding a project
 
 Copy the `<a class="project">` block in `index.html` and give it:
